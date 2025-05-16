@@ -1,15 +1,19 @@
 import React, { Component } from "react";
 import { ListGroup } from "react-bootstrap";
+import CommentsList from "./CommentsList";
+import AddComment from "./AddComment";
 
 class CommentArea extends Component {
   state = {
     comment: [],
   };
 
-  fetchCommentArea = async (id) => {
+  fetchCommentArea = async () => {
+    console.log("asin", this.props.asin);
+    
     try {
       const resp = await fetch(
-        "https://striveschool-api.herokuapp.com/api/comments/" + id,
+        "https://striveschool-api.herokuapp.com/api/comments/" + this.props.asin,
         {
           headers: {
             Authorization:
@@ -30,15 +34,18 @@ class CommentArea extends Component {
   };
 
   componentDidMount() {
-    this.fetchCommentArea(this.props.asin);
+    this.fetchCommentArea();
   }
 
   render() {
+    console.log("asin", this.props.asin);
+
     return (
       <ListGroup>
-        {this.state.comment.map((item) => (
-          <ListGroup.Item key={item._id}>{item.comment}</ListGroup.Item>
-        ))}
+        <h4 className="mt-4">CommentArea</h4>
+        <CommentsList comments={this.state.comment} />
+        <h4 className="mt-4">Aggiungi commento</h4>
+        <AddComment asin={this.props.asin} />
       </ListGroup>
     );
   }

@@ -8,6 +8,7 @@ class BookList extends Component {
   };
 
   render() {
+    
     return (
       <Container>
         <Form.Control
@@ -24,7 +25,7 @@ class BookList extends Component {
             )
             .slice(0, 24)
             .map((item) => (
-              <SingleBook key={item._id} books={item} />
+              <SingleBook key={item.asin} books={item} />
             ))}
         </Row>
       </Container>
